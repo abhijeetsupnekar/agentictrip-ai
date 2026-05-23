@@ -102,53 +102,40 @@ def home():
 @app.post("/chat")
 def chat(request: ChatRequest):
 
-    user_input = request.message
+    try:
 
-    session_id = request.session_id
+        user_input = request.message
 
-    session = get_session(session_id)
+        session_id = request.session_id
 
-    intent = detect_intent(user_input)
+        session = get_session(session_id)
 
-    print("FINAL INTENT:", intent)
+        intent = detect_intent(user_input)
 
-    # FLIGHTS
-    if intent == "flight":
+        print("FINAL INTENT:", intent)
 
-        result = handle_flight_query(user_input, session)
+        # FLIGHTS
+        if intent == "flight":
 
-    # HOTELS
-    elif intent == "hotels":
+            result = handle_flight_query(user_input, session)
 
-        result = get_hotels(user_input)
+        # HOTELS
+        elif intent == "hotels":
 
-    # RESTAURANTS
-    elif intent == "restaurants":
+            result = handle_hotel_query(user_input, session)
 
-        result = get_restaurants(user_input)
+        return {"response": result}
 
-    # NIGHTLIFE
-    elif intent == "nightlife":
+    except Exception as e:
 
-        result = get_nightlife(user_input)
+        import traceback
 
-    # WEATHER
-    elif intent == "weather":
+        print("CHAT ERROR:")
+        print(str(e))
 
-        result = get_weather(user_input)
+        traceback.print_exc()
 
-    elif intent == "trip_planning":
-
-        result = handle_trip_planning(user_input)
-
-    else:
-
-        result = {
-            "type": "message",
-            "message": "Sorry, I could not understand your request.",
-        }
-
-    return {"response": result}
+        return {"error": str(e)}
 
 
 @app.post("/confirm-booking")
