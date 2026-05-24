@@ -45,7 +45,8 @@ jobs:
 
           app_location: "./frontend"
           api_location: ""
-          output_location: "dist"
+          output_location: ""
+          app_build_command: "npm run build"
 
   close_pull_request_job:
 
