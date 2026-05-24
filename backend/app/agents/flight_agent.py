@@ -37,37 +37,42 @@ def extract_cities(user_input):
         "return",
         "depart",
         "on",
+        "tomorrow",
     ]
 
     for word in remove_words:
-
-        text = text.replace(word, "")
+        text = re.sub(rf"\b{word}\b", "", text)
 
     text = re.sub(r"\s+", " ", text).strip()
 
     print("CLEANED TEXT:", text)
 
-    # SUPPORT:
-    # from pune to bali
-    # to bali from pune
-
+    # from pune to delhi
     match = re.search(r"from\s+(.*?)\s+to\s+(.*)", text)
 
     if match:
-
         origin_city = match.group(1).strip()
-
         destination_city = match.group(2).strip()
 
         return origin_city, destination_city
 
+    # to delhi from pune
     match = re.search(r"to\s+(.*?)\s+from\s+(.*)", text)
 
     if match:
-
         destination_city = match.group(1).strip()
-
         origin_city = match.group(2).strip()
+
+        return origin_city, destination_city
+
+    # pune to delhi
+    match = re.search(r"(.*?)\s+to\s+(.*)", text)
+
+    if match:
+        origin_city = match.group(1).strip()
+        destination_city = match.group(2).strip()
+        print("ORIGIN:", origin_city)
+        print("DESTINATION:", destination_city)
 
         return origin_city, destination_city
 
