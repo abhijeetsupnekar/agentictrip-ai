@@ -220,7 +220,7 @@ function Home() {
       );
 
     }
-
+    //Added comments
     // WEATHER
     if (content?.type === "weather") {
 
