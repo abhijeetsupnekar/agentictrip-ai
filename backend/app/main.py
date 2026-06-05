@@ -105,7 +105,6 @@ def chat(request: ChatRequest):
     try:
 
         user_input = request.message
-
         session_id = request.session_id
 
         session = get_session(session_id)
@@ -114,17 +113,24 @@ def chat(request: ChatRequest):
 
         print("FINAL INTENT:", intent)
 
+        result = None
+
         # FLIGHTS
         if intent == "flight":
-
             result = handle_flight_query(user_input, session)
 
         # HOTELS
         elif intent == "hotels":
-
             result = handle_hotel_query(user_input, session)
 
+        else:
+            result = f"Intent '{intent}' is not implemented yet."
+
         return {"response": result}
+
+    except Exception as e:
+        print("CHAT ERROR:", str(e))
+        return {"error": str(e)}
 
     except Exception as e:
 
