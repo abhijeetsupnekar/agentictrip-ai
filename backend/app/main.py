@@ -1,7 +1,7 @@
 from app.agents.router import detect_intent
 
 from app.agents.flight_agent import handle_flight_query
-
+from app.agents.trip_planner_agent import handle_trip_planning
 from app.tools.weather_tool import get_weather
 from app.agents.trip_planner_agent import handle_trip_planning
 from app.tools.places_tool import (
@@ -122,6 +122,10 @@ def chat(request: ChatRequest):
         # HOTELS
         elif intent == "hotels":
             result = handle_hotel_query(user_input, session)
+
+        # TRIP PLANNING
+        elif intent == "trip_planning":
+            result = handle_trip_planning(user_input, session)
 
         else:
             result = f"Intent '{intent}' is not implemented yet."
