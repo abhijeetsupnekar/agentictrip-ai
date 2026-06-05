@@ -12,7 +12,10 @@ import TypingIndicator from "../components/TypingIndicator";
 
 
 function Home() {
-
+  console.log(
+    "VITE_API_URL:",
+    import.meta.env.VITE_API_URL
+  );
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [bookingStage, setBookingStage] = useState("search");
   const [passengerData, setPassengerData] = useState(null);
