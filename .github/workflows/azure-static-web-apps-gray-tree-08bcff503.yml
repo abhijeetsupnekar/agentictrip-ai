@@ -1,11 +1,16 @@
 name: Azure Static Web Apps CI/CD
+
 on:
   push:
     branches:
       - main
 
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - closed
     branches:
       - main
 
@@ -14,6 +19,9 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
 
     runs-on: ubuntu-latest
+
+    env:
+      VITE_API_URL: https://agentitrip-ai-fqb9bufeang0dqhn.westeurope-01.azurewebsites.net
 
     steps:
       - uses: actions/checkout@v4
