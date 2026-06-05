@@ -9,3 +9,6 @@ def hotel_agent(destination: str):
         "type": "hotels",
         "results": hotels
     }
+def handle_hotel_query(user_input, session=None):
+
+    return hotel_agent(user_input)
